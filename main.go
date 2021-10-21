@@ -38,7 +38,6 @@ var patcher map[string]interface{}
 var files Files
 var patchingURL = "https://releases.toontownoffline.net/%s.json"
 
-
 func main() {
 	url := fmt.Sprintf(patchingURL, getRuntimePlatform())
 
