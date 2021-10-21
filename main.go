@@ -115,8 +115,10 @@ func main() {
 
 	if getRuntimePlatform() == "windows" {
 		bootGame("offline.exe")
-	} else {
-		bootGame("offline")
+	} else if getRuntimePlatform() == "mac" {
+		bootGame("./ToontownOffline")
+	} else if getRuntimePlatform() == "linux" {
+		bootGame("./offline")
 	}
 }
 
@@ -262,7 +264,7 @@ func downloadFile(file File) error {
 
 	decompressBzip2(file.getFullFilePath()+".bz2", file.getFullFilePath())
 
-	if file.Name == "offline" || file.Name == "offline.exe" {
+	if file.Name == "offline" || file.Name == "offline.exe" || file.Name == "ToontownOffline" {
 		err := os.Chmod(file.Name, 755)
 		if err != nil {
 			panic(err)
