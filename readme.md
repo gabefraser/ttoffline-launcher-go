@@ -1,5 +1,7 @@
 # Toontown Offline Launcher
 
+[![Generate release-artifacts](https://github.com/gabefraser/ttoffline-launcher-go/actions/workflows/go.yml/badge.svg)](https://github.com/gabefraser/ttoffline-launcher-go/actions/workflows/go.yml)
+
 This is an unofficial launcher I built as the current one struggles from downloading issues.
 
 Feel free to take a look at the source code.
