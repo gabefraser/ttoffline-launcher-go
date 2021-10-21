@@ -13,12 +13,12 @@ Windows
 ttoff-launcher-windows.exe [--dedicated]
 ```
 
-Linux
+Linux - UNTESTED
 ```
 ttoff-launcher-linux [--dedicated]
 ```
 
-Mac
+Mac - UNTESTED
 ```
 ttoff-launcher-mac [--dedicated]
 ```
