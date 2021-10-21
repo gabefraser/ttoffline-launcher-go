@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -107,24 +108,27 @@ var patcherURL = patchingURL + "/%s.json"
 
 func main() {
 	url := fmt.Sprintf(patcherURL, getRuntimePlatform())
-	dedicated := ""
-	if len(os.Args) > 0 && os.Args[1] == "--dedicated" {
-		dedicated = "--dedicated"
-	}
 
 	parsePatcher(url)
 
 	patchFiles()
 
 	if getRuntimePlatform() == "windows" {
-		bootGame("offline.exe", dedicated)
+		bootGame("offline.exe")
 	} else {
-		bootGame("offline", dedicated)
+		bootGame("offline")
 	}
 }
 
 func bootGame(args ...string) (p *os.Process, err error) {
 	fmt.Println("Booting the game...")
+
+	dedicatedPtr := flag.Bool("dedicated", false, "Runs the dedicated server without needing to open offline(.exe).")
+	flag.Parse()
+
+	if *dedicatedPtr {
+		args = append(args, "--dedicated")
+	}
 
 	if args[0], err = exec.LookPath(args[0]); err == nil {
 		var procAttr os.ProcAttr
