@@ -107,7 +107,10 @@ var patcherURL = patchingURL + "/%s.json"
 
 func main() {
 	url := fmt.Sprintf(patcherURL, getRuntimePlatform())
-	dedicated := os.Args[1]
+	dedicated := ""
+	if len(os.Args) > 0 && os.Args[1] == "--dedicated" {
+		dedicated = "--dedicated"
+	}
 
 	parsePatcher(url)
 
