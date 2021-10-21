@@ -10,12 +10,17 @@ You can add the `--dedicated` flag to the executable to start the server straigh
 
 Windows
 ```
-ttoff-launcher.exe [--dedicated]
+ttoff-launcher-windows.exe [--dedicated]
 ```
 
-Linux/MacOS
+Linux
 ```
-ttoff-launcher [--dedicated]
+ttoff-launcher-linux [--dedicated]
+```
+
+Mac
+```
+ttoff-launcher-mac [--dedicated]
 ```
 
 ## Credits
