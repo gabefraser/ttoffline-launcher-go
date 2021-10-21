@@ -1,5 +1,7 @@
 # Toontown Offline Launcher
 
+[![release](https://github.com/gabefraser/ttoffline-launcher-go/actions/workflows/release.yml/badge.svg)](https://github.com/gabefraser/ttoffline-launcher-go/actions/workflows/release.yml)
+
 This is an unofficial launcher I built as the current one struggles from downloading issues.
 
 Feel free to take a look at the source code.
