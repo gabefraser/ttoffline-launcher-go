@@ -10,12 +10,14 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"regexp"
 	"runtime"
 	"strings"
 	"time"
 
 	"github.com/dustin/go-humanize"
+	"github.com/mholt/archiver/v3"
 )
 
 type File struct {
@@ -105,16 +107,38 @@ var patcherURL = patchingURL + "/%s.json"
 
 func main() {
 	url := fmt.Sprintf(patcherURL, getRuntimePlatform())
+	dedicated := os.Args[1]
 
 	parsePatcher(url)
 
 	patchFiles()
 
-	bootGame()
+	if getRuntimePlatform() == "windows" {
+		bootGame("offline.exe", dedicated)
+	} else {
+		bootGame("offline", dedicated)
+	}
 }
 
-func bootGame() {
+func bootGame(args ...string) (p *os.Process, err error) {
 	fmt.Println("Booting the game...")
+
+	if args[0], err = exec.LookPath(args[0]); err == nil {
+		var procAttr os.ProcAttr
+
+		procAttr.Files = []*os.File{
+			os.Stdin,
+			os.Stdout,
+			os.Stderr,
+		}
+
+		p, err := os.StartProcess(args[0], args, &procAttr)
+		if err != nil {
+			return p, nil
+		}
+	}
+
+	return nil, err
 }
 
 func patchFiles() {
@@ -205,7 +229,7 @@ func downloadFile(file File) error {
 		os.MkdirAll(file.getFilePath(), os.ModePerm)
 	}
 
-	out, err := os.Create(file.getFullFilePath() + ".tmp")
+	out, err := os.Create(file.getFullFilePath() + ".bz2")
 	if err != nil {
 		return err
 	}
@@ -229,11 +253,28 @@ func downloadFile(file File) error {
 
 	out.Close()
 
-	if err := os.Rename(file.getFullFilePath()+".tmp", file.getFullFilePath()); err != nil {
-		return err
+	decompressBzip2(file.getFullFilePath()+".bz2", file.getFullFilePath())
+
+	if file.Name == "offline" || file.Name == "offline.exe" {
+		err := os.Chmod(file.Name, 755)
+		if err != nil {
+			panic(err)
+		}
 	}
 
 	return nil
+}
+
+func decompressBzip2(filePath string, fileName string) {
+	err := archiver.DecompressFile(filePath, fileName)
+	if err != nil {
+		panic(err)
+	}
+
+	err = os.Remove(filePath)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func getFileHash(file File) (string, error) {
