@@ -24,7 +24,7 @@ jobs:
         with:
           platforms: "linux/amd64, darwin/amd64, windows/amd64"
           name: "ttoffline-launcher"
-          compress: "false"
+          compress: false
           dest: "dist"
 
       # step 3: upload build-artifacts
