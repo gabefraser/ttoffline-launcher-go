@@ -1,6 +1,13 @@
 /.idea
 /astron
 /resources
+/backups
+/config
+/logs
+accounts.json
+bans.json
+settings.json
+errorCode
 offline
 offline.exe
 ToontownOffline

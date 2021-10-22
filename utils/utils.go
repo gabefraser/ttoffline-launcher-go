@@ -3,7 +3,9 @@ package utils
 import (
 	"flag"
 	"fmt"
+	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"sort"
 	"strings"
@@ -22,6 +24,7 @@ func BootGame(startCommand string) {
 	fmt.Println("Booting the game...")
 
 	var args []string
+	startCmd, _ := filepath.Abs("./" + startCommand)
 
 	dedicatedPtr := flag.Bool("dedicated", false, "Runs the dedicated server without needing to open offline(.exe).")
 	flag.Parse()
@@ -30,9 +33,19 @@ func BootGame(startCommand string) {
 		args = append(args, "--dedicated")
 	}
 
-	cmd := exec.Command(startCommand, strings.Join(args[:], " "))
+	cmd := exec.Command(startCmd)
+	if args != nil {
+		cmd = exec.Command(startCmd, strings.Join(args[:], " "))
+	}
 
-	cmd.Start()
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	err := cmd.Run()
+
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func Contains(s []string, searchTerm string) bool {
