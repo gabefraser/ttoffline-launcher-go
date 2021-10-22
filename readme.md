@@ -17,14 +17,14 @@ Windows
 ttoff-launcher-windows-amd64.exe [--dedicated]
 ```
 
-Linux - UNTESTED
+Linux
 ```
-ttoff-launcher-linux-amd64 [--dedicated]
+chmod u+x ttoff-launcher-linux-amd64 && ./ttoff-launcher-linux-amd64 [--dedicated]
 ```
 
-Mac - UNTESTED
+Mac
 ```
-ttoff-launcher-mac-amd64 [--dedicated]
+chmod u+x ttoff-launcher-mac-amd64 && ./ttoff-launcher-mac-amd64 [--dedicated]
 ```
 
 ## Credits
