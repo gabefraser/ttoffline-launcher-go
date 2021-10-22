@@ -23,6 +23,7 @@ var files Files
 var patchingURL = "https://releases.toontownoffline.net"
 var patcherURL = patchingURL + "/%s.json"
 var executables = []string{"ToontownOffline", "astrond-linux", "astrond-darwin", "offline", "offline.exe"}
+var extraFolders = []string{"astron/databases/astrondb"}
 
 func PatchFiles() {
 	for _, file := range files.GetFiles() {
@@ -45,6 +46,12 @@ func PatchFiles() {
 					panic(err)
 				}
 			}
+		}
+	}
+
+	for _, dir := range extraFolders {
+		if _, err := os.Stat(dir); os.IsNotExist(err) {
+			os.MkdirAll(dir, os.ModePerm)
 		}
 	}
 }
