@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"sort"
 )
 
 func GetRuntimePlatform() string {
@@ -43,4 +44,10 @@ func BootGame(args ...string) (p *os.Process, err error) {
 	}
 
 	return nil, err
+}
+
+func Contains(s []string, searchTerm string) bool {
+	sort.Strings(s)
+	i := sort.SearchStrings(s, searchTerm)
+	return i < len(s) && s[i] == searchTerm
 }

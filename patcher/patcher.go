@@ -12,6 +12,7 @@ import (
 	"os"
 	"regexp"
 	"time"
+
 	"toontown-offline-launcher/utils"
 
 	"github.com/mholt/archiver/v3"
@@ -21,6 +22,7 @@ var patcher map[string]interface{}
 var files Files
 var patchingURL = "https://releases.toontownoffline.net"
 var patcherURL = patchingURL + "/%s.json"
+var executables = []string{"ToontownOffline", "astrond-linux", "astrond-darwin", "offline", "offline.exe"}
 
 func PatchFiles() {
 	for _, file := range files.GetFiles() {
@@ -138,8 +140,8 @@ func downloadFile(file File) error {
 
 	decompressBzip2(file.GetFullFilePath()+".bz2", file.GetFullFilePath())
 
-	if file.Name == "offline" || file.Name == "offline.exe" || file.Name == "ToontownOffline" {
-		err := os.Chmod(file.Name, 755)
+	if utils.Contains(executables, file.Name) {
+		err := os.Chmod(file.GetFullFilePath(), 755)
 		if err != nil {
 			panic(err)
 		}
