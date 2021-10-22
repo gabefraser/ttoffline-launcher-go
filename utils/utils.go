@@ -3,10 +3,10 @@ package utils
 import (
 	"flag"
 	"fmt"
-	"os"
 	"os/exec"
 	"runtime"
 	"sort"
+	"strings"
 )
 
 func GetRuntimePlatform() string {
@@ -18,8 +18,10 @@ func GetRuntimePlatform() string {
 	return patchingPlatform
 }
 
-func BootGame(args ...string) (p *os.Process, err error) {
+func BootGame(startCommand string) {
 	fmt.Println("Booting the game...")
+
+	var args []string
 
 	dedicatedPtr := flag.Bool("dedicated", false, "Runs the dedicated server without needing to open offline(.exe).")
 	flag.Parse()
@@ -28,22 +30,9 @@ func BootGame(args ...string) (p *os.Process, err error) {
 		args = append(args, "--dedicated")
 	}
 
-	if args[0], err = exec.LookPath(args[0]); err == nil {
-		var procAttr os.ProcAttr
+	cmd := exec.Command(startCommand, strings.Join(args[:], " "))
 
-		procAttr.Files = []*os.File{
-			os.Stdin,
-			os.Stdout,
-			os.Stderr,
-		}
-
-		p, err := os.StartProcess(args[0], args, &procAttr)
-		if err != nil {
-			return p, nil
-		}
-	}
-
-	return nil, err
+	cmd.Start()
 }
 
 func Contains(s []string, searchTerm string) bool {

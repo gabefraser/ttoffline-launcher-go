@@ -13,8 +13,8 @@ func main() {
 	if utils.GetRuntimePlatform() == "windows" {
 		utils.BootGame("offline.exe")
 	} else if utils.GetRuntimePlatform() == "mac" {
-		utils.BootGame("./ToontownOffline")
+		utils.BootGame("ToontownOffline")
 	} else if utils.GetRuntimePlatform() == "linux" {
-		utils.BootGame("./offline")
+		utils.BootGame("offline")
 	}
 }
