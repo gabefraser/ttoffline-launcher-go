@@ -10,21 +10,21 @@ Feel free to take a look at the source code.
 
 Download the latest binary for your operating system of choice [here](https://github.com/gabefraser/ttoffline-launcher-go/releases).
 
-You can add the `--dedicated` flag to the executable to start the server straight from the launcher.
+*OPTIONAL* You can add the `--dedicated` flag to the executable to start the server straight from the launcher.
 
 Windows
 ```
-ttoff-launcher-windows-amd64.exe [--dedicated]
+ttoffline-launcher-windows-amd64.exe [--dedicated]
 ```
 
 Linux
 ```
-chmod u+x ttoff-launcher-linux-amd64 && ./ttoff-launcher-linux-amd64 [--dedicated]
+chmod u+x ttoffline-launcher-linux-amd64 && ./ttoffline-launcher-linux-amd64 [--dedicated]
 ```
 
 Mac
 ```
-chmod u+x ttoff-launcher-darwin-amd64 && ./ttoff-launcher-darwin-amd64 [--dedicated]
+chmod u+x ttoffline-launcher-darwin-amd64 && ./ttoffline-launcher-darwin-amd64 [--dedicated]
 ```
 
 ## Credits
