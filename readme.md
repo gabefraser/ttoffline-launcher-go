@@ -24,7 +24,7 @@ chmod u+x ttoff-launcher-linux-amd64 && ./ttoff-launcher-linux-amd64 [--dedicate
 
 Mac
 ```
-chmod u+x ttoff-launcher-mac-amd64 && ./ttoff-launcher-mac-amd64 [--dedicated]
+chmod u+x ttoff-launcher-darwin-amd64 && ./ttoff-launcher-darwin-amd64 [--dedicated]
 ```
 
 ## Credits
