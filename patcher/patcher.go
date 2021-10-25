@@ -26,19 +26,19 @@ var executables = []string{"ToontownOffline", "astrond-linux", "astrond-darwin",
 var extraFolders = []string{"astron/databases/astrondb"}
 
 func PatchFiles() {
+	fmt.Println("Checking for game update...")
+
 	for _, file := range files.GetFiles() {
 		if _, err := os.Stat(file.GetFullFilePath()); os.IsNotExist(err) {
 			err := downloadFile(file)
 			if err != nil {
 				panic(err)
 			}
-		} else if os.IsExist(err) {
+		} else {
 			hash, err := getFileHash(file)
 			if err != nil {
 				panic(err)
 			}
-
-			fmt.Println(fmt.Sprintf("File: %s, current hash: %s, patcher hash: %s", file.Name, hash, file.Hash))
 
 			if hash != file.Hash {
 				err := downloadFile(file)
@@ -60,7 +60,7 @@ func ParsePatcher() {
 	url := fmt.Sprintf(patcherURL, utils.GetRuntimePlatform())
 
 	patchClient := http.Client{
-		Timeout: time.Second * 2,
+		Timeout: time.Second * 10,
 	}
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -158,6 +158,11 @@ func downloadFile(file File) error {
 }
 
 func decompressBzip2(filePath string, fileName string) {
+	toBeDeleted := os.Remove(fileName)
+	if toBeDeleted != nil {
+		panic(toBeDeleted)
+	}
+
 	err := archiver.DecompressFile(filePath, fileName)
 	if err != nil {
 		panic(err)

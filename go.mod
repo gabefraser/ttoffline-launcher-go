@@ -11,12 +11,8 @@ require (
 	github.com/andybalholm/brotli v1.0.0 // indirect
 	github.com/dsnet/compress v0.0.1 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
-	github.com/hashicorp/go-version v1.0.0 // indirect
-	github.com/kisielk/godepgraph v0.0.0-20190626013829-57a7e4a651a9 // indirect
 	github.com/klauspost/compress v1.10.10 // indirect
 	github.com/klauspost/pgzip v1.2.4 // indirect
-	github.com/mitchellh/gox v1.0.1 // indirect
-	github.com/mitchellh/iochan v1.0.0 // indirect
 	github.com/nwaples/rardecode v1.1.2 // indirect
 	github.com/pierrec/lz4/v4 v4.0.3 // indirect
 	github.com/ulikunitz/xz v0.5.10 // indirect
