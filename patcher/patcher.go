@@ -41,6 +41,8 @@ func PatchFiles() {
 			}
 
 			if hash != file.Hash {
+				deleteFile(file.GetFullFilePath())
+
 				err := downloadFile(file)
 				if err != nil {
 					panic(err)
@@ -158,11 +160,6 @@ func downloadFile(file File) error {
 }
 
 func decompressBzip2(filePath string, fileName string) {
-	toBeDeleted := os.Remove(fileName)
-	if toBeDeleted != nil {
-		panic(toBeDeleted)
-	}
-
 	err := archiver.DecompressFile(filePath, fileName)
 	if err != nil {
 		panic(err)
@@ -171,6 +168,13 @@ func decompressBzip2(filePath string, fileName string) {
 	err = os.Remove(filePath)
 	if err != nil {
 		panic(err)
+	}
+}
+
+func deleteFile(fileName string) {
+	toBeDeleted := os.Remove(fileName)
+	if toBeDeleted != nil {
+		panic(toBeDeleted)
 	}
 }
 
